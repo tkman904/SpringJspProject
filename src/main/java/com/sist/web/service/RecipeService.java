@@ -19,4 +19,5 @@ public interface RecipeService {
 	 */
 	public List<RecipeVO> recipeListData(int start);
 	public int recipeTotalPage();
+	public RecipeDetailVO recipeDetailData(int no);
 }

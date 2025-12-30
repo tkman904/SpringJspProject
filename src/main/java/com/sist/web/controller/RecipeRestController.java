@@ -37,9 +37,35 @@ public class RecipeRestController {
 			map.put("totalpage", totalpage);
 			map.put("startPage", startPage);
 			map.put("endPage", endPage);
+			// JSON
+		} catch(Exception ex) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+			// 500에러
+		}
+		return new ResponseEntity<>(map, HttpStatus.OK);
+	}
+	// Vue로 값 전송 => router
+	
+	@GetMapping("/recipe/detail_vue/")
+	public ResponseEntity<Map> recipe_detail(@RequestParam("no") int no) {
+		Map map = new HashMap();
+		try {
+			RecipeDetailVO vo = rService.recipeDetailData(no);
+			String[] datas = vo.getFoodmake().split("\n");
+			List<String> tList = new ArrayList<String>();
+			List<String> iList = new ArrayList<String>();
+			for(String s : datas) {
+				StringTokenizer st = new StringTokenizer(s, "^");
+				tList.add(st.nextToken());
+				iList.add(st.nextToken());
+			}
+			
+			map.put("vo", vo);
+			map.put("tList", tList);
+			map.put("iList", iList);
 		} catch(Exception ex) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return new ResponseEntity<>(map, HttpStatus.OK);
-	}
+	} 
 }

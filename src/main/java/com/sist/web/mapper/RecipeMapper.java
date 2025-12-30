@@ -2,6 +2,7 @@ package com.sist.web.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
@@ -24,5 +25,14 @@ public interface RecipeMapper {
 	public int recipeTotalPage();
 	
 	// 상세보기
+	@Update("UPDATE recipe SET "
+			+ "hit = hit+1 "
+			+ "WHERE no = #{no}")
+	public void recipeHitIncremenet(int no);
+	
+	@Select("SELECT * FROM recipedetail "
+			+ "WHERE no = #{no}")
+	public RecipeDetailVO recipeDetailData(int no);
+	
 	// 댓글 : Mapper 따로 => Service에서 통합
 }

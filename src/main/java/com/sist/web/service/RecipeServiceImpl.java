@@ -25,4 +25,11 @@ public class RecipeServiceImpl implements RecipeService {
 		// TODO Auto-generated method stub
 		return mapper.recipeTotalPage();
 	}
+
+	@Override
+	public RecipeDetailVO recipeDetailData(int no) {
+		// TODO Auto-generated method stub
+		mapper.recipeHitIncremenet(no);
+		return mapper.recipeDetailData(no);
+	}
 }

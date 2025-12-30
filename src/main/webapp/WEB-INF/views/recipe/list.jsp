@@ -36,7 +36,7 @@ p {
     <div class="row">
       <div class="col-md-3" v-for="(vo, index) in store.list" :key="index">
         <div class="thumbnail">
-          <a href="#">
+          <a :href="'/detail?no='+vo.no">
             <img :src="vo.poster" :title="vo.title" style="width: 240px; height: 150px;">
             <div class="caption">
               <p>{{vo.chef}}</p>
