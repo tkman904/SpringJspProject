@@ -15,6 +15,7 @@ const useReplyStore = defineStore('reply', {
 	state: initialState,
 	// actions
 	actions: {
+		// toggle
 		toggleUpdate(no, msg) {
 			this.upReplyNo = this.upReplyNo === no ? null : no
 			this.updateMsg[no] = msg
@@ -74,7 +75,6 @@ const useReplyStore = defineStore('reply', {
 			this.type = data.type
 			this.msg = ''
 		}
-		// toggle
 	}
 	// getters
 	

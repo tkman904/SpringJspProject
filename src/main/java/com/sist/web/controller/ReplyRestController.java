@@ -24,15 +24,22 @@ import com.sist.web.service.*;
 public class ReplyRestController {
 	private final ReplyService rService;
 	
+	public Map commonsListData(int cno, int type) {
+		Map map = new HashMap();
+		List<ReplyVO> list = rService.replyListData(cno, type);
+		
+		map.put("list", list);
+		map.put("cno", cno);
+		map.put("type", type);
+		
+		return map;
+	}
+
 	@GetMapping("/reply/list_vue/")
 	public ResponseEntity<Map> reply_list_vue(@RequestParam("cno") int cno, @RequestParam("type") int type) {
 		Map map = new HashMap();
 		try {
-			List<ReplyVO> list = rService.replyListData(cno, type);
-			
-			map.put("list", list);
-			map.put("cno", cno);
-			map.put("type", type);
+			map = commonsListData(cno, type);
 		} catch(Exception ex) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -49,11 +56,7 @@ public class ReplyRestController {
 			vo.setName(name);
 			rService.replyInsert(vo);
 			
-			List<ReplyVO> list = rService.replyListData(vo.getCno(), vo.getType());
-			
-			map.put("list", list);
-			map.put("cno", vo.getCno());
-			map.put("type", vo.getType());
+			map = commonsListData(vo.getCno(), vo.getType());
 		} catch(Exception ex) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -66,10 +69,7 @@ public class ReplyRestController {
 		try {
 			rService.replyDelete(no);
 			
-			List<ReplyVO> list = rService.replyListData(cno, type);
-			map.put("list", list);
-			map.put("cno", cno);
-			map.put("type", type);
+			map = commonsListData(cno, type);
 		} catch(Exception ex) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -82,11 +82,7 @@ public class ReplyRestController {
 		try {
 			rService.replyUpdate(vo);
 			
-			List<ReplyVO> list = rService.replyListData(vo.getCno(), vo.getType());
-			
-			map.put("list", list);
-			map.put("cno", vo.getCno());
-			map.put("type", vo.getType());
+			map = commonsListData(vo.getCno(), vo.getType());
 		} catch(Exception ex) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
